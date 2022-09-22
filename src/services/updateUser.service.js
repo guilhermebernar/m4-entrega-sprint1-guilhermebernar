@@ -11,6 +11,7 @@ const updateUserService = (id, name, email, pwd) => {
     if(userIndex === -1) { return "User not found";}
 
     db[userIndex] = {...db[userIndex], ...updateUser};
+    console.log(db[userIndex]);
     return db[userIndex];
 }
 
