@@ -6,21 +6,22 @@ import deleteUserController from '../controllers/deleteUser.controller';
 import listUserController from '../controllers/listUser.controller';
 import updateUserController from '../controllers/updateUser.controller';
 import verifyAuthToken from "../middlewares/verifyAuthToken.middleware";
+import checkUserController from "../controllers/checkProfile.controller";
 
-// MIDDLEWARE IMPORTS
+// MIDDLEWARES IMPORTS
 import verifyEmailAvailability from "../middlewares/verifyEmailAvailability.middleware";
 
 ////////////////////////////////////////////////////////////////
 const router =  Router();
 
 router.post('', verifyEmailAvailability, createUserController);
-router.get('', listUserController);
 
 // Protected Routes
 const partySecurity = verifyAuthToken;
 
-router.get('/profile/:id', partySecurity,);
-router.patch('/:id', partySecurity, updateUserController);
-router.delete('/:id', partySecurity, deleteUserController);
+router.get('', partySecurity, listUserController);
+router.get('/profile', partySecurity, checkUserController);
+router.patch('/:uuid', partySecurity, updateUserController);
+router.delete('/:uuid', partySecurity, deleteUserController);
 
 export default router;
