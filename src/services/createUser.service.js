@@ -2,12 +2,15 @@ import {usersDB as db} from "../database/usersDB";
 import {v4 as uuidv4} from "uuid";
 import * as bcrypt from "bcryptjs";
 
-const createUserService = async (email,name,pwd) => {        
-    const hashedPwd = await bcrypt.hash(pwd,10);
+const createUserService = async (email,name,password,isAdm,createdOn,updatedOn) => {        
+    const hashedpassword = await bcrypt.hash(password,10);
     const newUser = {
         email,
         name,
-        pwd: hashedPwd,
+        password: hashedpassword,
+        isAdm,
+        createdOn: new Date(),
+        updatedOn,
         id: uuidv4()
     }
 
