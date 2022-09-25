@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import checkUserController from '../controllers/checkProfile.controller';
 
 
 const verifyAuthToken = (req, res, next) => {
@@ -13,7 +12,7 @@ const verifyAuthToken = (req, res, next) => {
             return res.status(401).send({menssage: "Invalid token"});
         } else {
             req.isAdm = decoded.isAdm;
-            req.uuid = decoded.uuid;
+            req.id = decoded.id;
         }
         next();
     });

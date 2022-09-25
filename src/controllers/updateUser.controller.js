@@ -1,10 +1,10 @@
-import updateUserService from "../services/updateUser.service";
+    import updateUserService from "../services/updateUser.service";
 
 const updateUserController = (req, res) => {
-    const {uuid} = req.params;
+    const {id} = req.params;
     const password = req.body.password;
     const dataToEdit = req.body;
-    const updateUser = updateUserService(uuid, password, dataToEdit);
+    const updateUser = updateUserService(id, password, dataToEdit);
 
     return res.status(200).json(updateUser);
 }

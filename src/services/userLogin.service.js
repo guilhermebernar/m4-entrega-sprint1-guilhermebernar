@@ -12,7 +12,7 @@ const loginUserService = (email, password) => {
     if (!passwordMatch) {
         return "Algo errado aconteceu, tente novamente.";
     };
-    const token = jwt.sign({email: email, isAdm:user.isAdm}, "SECRET_KEY", {expiresIn: "24h"});
+    const token = jwt.sign({email: email, isAdm:user.isAdm, id:user.id}, "SECRET_KEY", {expiresIn: "24h"});
 
     return token;
 }

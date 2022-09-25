@@ -21,7 +21,7 @@ const partySecurity = verifyAuthToken;
 
 router.get('', partySecurity, listUserController);
 router.get('/profile', partySecurity, checkUserController);
-router.patch('/:uuid', partySecurity, updateUserController);
-router.delete('/:uuid', partySecurity, deleteUserController);
+router.patch('/:id', partySecurity, updateUserController);
+router.delete('/:id', partySecurity, deleteUserController);
 
 export default router;
