@@ -6,7 +6,7 @@ const verifyEmailAvailability = (req, res, next) => {
     if (userAlreadyExists) {
         return res
                 .status(400)
-                .json({mensage:"This e-mail is already in use."})};
+                .json({"message":"This e-mail is already in use."})};
     
     next();
 };

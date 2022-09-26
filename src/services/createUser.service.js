@@ -10,12 +10,18 @@ const createUserService = async (email,name,password,isAdm,createdOn,updatedOn) 
         password: hashedpassword,
         isAdm,
         createdOn: new Date(),
-        updatedOn,
-        id: uuidv4()
+        updatedOn: new Date(),
+        uuid: uuidv4()
     }
+    const returnData = {email:newUser.email,
+        name:newUser.name,
+        isAdm:newUser.isAdm,
+        createdOn:newUser.createdOn,
+        updatedOn:newUser.updatedOn,
+        uuid:newUser.uuid}
 
     db.push(newUser);
-    return newUser;    
+    return returnData;
 };
 
 export default createUserService;
