@@ -1,10 +1,14 @@
 import {usersDB as db} from "../database/usersDB";
 import * as bcrypt from "bcryptjs";
 
-const updateUserService = async (uuid, password, dataToEdit) => {
+const updateUserService = async (uuid, dataToEdit) => {
     const searchId = uuid;
     const updateUser = dataToEdit;
-    const hashedpassword = await bcrypt.hash(password,10);
+    const hashedpassword = ""
+
+    if(dataToEdit.password){
+        hashedpassword = await bcrypt.hash(dataToEdit.password,10);
+    }
 
     const userIndex = db.findIndex(e=> e.uuid === searchId);
     if(userIndex === -1) { return "User not found"}
@@ -13,7 +17,15 @@ const updateUserService = async (uuid, password, dataToEdit) => {
     db[userIndex].updatedOn = new Date();
     db[userIndex].password = hashedpassword;
     
-    return db[userIndex];
+    const data = await db[userIndex];
+    return {
+        uuid:data.uuid,
+        createdOn:data.createdOn,
+        updatedOn:data.updatedOn,
+        name:data.name,
+        email:data.email,
+        isAdm:data.isAdm,
+    } 
 }
 
 export default updateUserService;
