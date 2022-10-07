@@ -5,17 +5,16 @@ import createUserController from '../controllers/createUser.controller';
 import deleteUserController from '../controllers/deleteUser.controller';
 import listUserController from '../controllers/listUser.controller';
 import updateUserController from '../controllers/updateUser.controller';
-import verifyAuthToken from "../middlewares/verifyAuthToken.middleware";
 import checkUserController from "../controllers/checkProfile.controller";
 
 // MIDDLEWARES IMPORTS
-import verifyEmailAvailability from "../middlewares/verifyEmailAvailability.middleware";
 import verifyAdmAccess from "../middlewares/verifyAdmAccess.middleware";
+import verifyAuthToken from "../middlewares/verifyAuthToken.middleware";
 
 ////////////////////////////////////////////////////////////////
 const router =  Router();
 
-router.post('', verifyEmailAvailability, createUserController);
+router.post('', createUserController);
 
 // Protected Routes
 const partySecurity = verifyAuthToken;

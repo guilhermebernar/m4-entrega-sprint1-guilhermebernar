@@ -1,27 +1,19 @@
-import {usersDB as db} from "../database/usersDB";
-import {v4 as uuidv4} from "uuid";
+import database from "../database/usersDB";
 import * as bcrypt from "bcryptjs";
 
-const createUserService = async (email,name,password,isAdm,createdOn,updatedOn) => {        
-    const hashedpassword = await bcrypt.hash(password,10);
-    const newUser = {
-        email,
-        name,
-        password: hashedpassword,
-        isAdm,
-        createdOn: new Date(),
-        updatedOn: new Date(),
-        uuid: uuidv4()
-    }
-    const returnData = {email:newUser.email,
-        name:newUser.name,
-        isAdm:newUser.isAdm,
-        createdOn:newUser.createdOn,
-        updatedOn:newUser.updatedOn,
-        uuid:newUser.uuid}
+const createUserService = async (email,name,password,isAdm) => {        
+    const hashedPassword = await bcrypt.hash(password,10); 
+    const createdOn = new Date().toJSON();
 
-    db.push(newUser);
-    return returnData;
+    try{
+        const res = await database.query(
+            "INSERT INTO users(email,name,password,createdOn,isAdm) VALUES($1,$2,$3,$4,$5) RETURNING *",
+            [email,name,hashedPassword,createdOn,isAdm]
+        );
+        return res.rows[0]
+    } catch(err){
+        throw new Error(err);
+    };
 };
 
 export default createUserService;
